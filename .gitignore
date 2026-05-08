@@ -1,0 +1,8 @@
+__pycache__/
+*.pyc
+email_bot.log
+sent_log.json
+.history/
+.venv/
+venv/
+env/
