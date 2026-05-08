@@ -29,9 +29,9 @@ from datetime import datetime
 from pathlib import Path
 
 # ─── CONFIG ───────────────────────────────────────────────────────────────────
-SENDER_NAME   = "Gopi M"
-SENDER_EMAIL  = "gopim302004@gmail.com"      # ← your Gmail
-GMAIL_APP_PWD = " cvko ghel usls wqqr"        # ← paste your App Password here
+SENDER_NAME   = os.getenv("SENDER_NAME", "")
+SENDER_EMAIL  = os.getenv("SENDER_EMAIL", "")
+GMAIL_APP_PWD = os.getenv("GMAIL_APP_PWD", "")
 
 CSV_PATH      = "Canadian Businesses - Sheet1.csv"
 LOG_PATH      = "sent_log.json"
@@ -39,11 +39,6 @@ DELAY_SECONDS = 8          # seconds between emails (avoid spam triggers)
 BATCH_SIZE    = 50         # pause every N emails for a longer break
 BATCH_PAUSE   = 120        # seconds to pause between batches
 
-PORTFOLIO     = "https://gopi30.vercel.app"
-GITHUB        = "https://github.com/Gopikrish-30"
-HUGGINGFACE   = "https://huggingface.co/gopi30"
-LINKEDIN      = "https://www.linkedin.com/in/gopi-m/"
-PHONE         = "+91 6379190477"
 TARGET_ROLE   = "AI Engineer Internship / ML Engineer Internship"
 # ──────────────────────────────────────────────────────────────────────────────
 
@@ -161,24 +156,18 @@ def load_companies(csv_path: str, tier: str = 'all') -> list[dict]:
 # ─── EMAIL TEMPLATES ──────────────────────────────────────────────────────────
 
 def subject(company: dict, campaign_tier: str) -> str:
-    return "AI Engineering Internship Enquiry — Gopi M"
+    return "AI Engineering Internship Enquiry"
 
 
 def body_html(company: dict, campaign_tier: str) -> str:
     name = company['company_name']
 
     intro = (
-        "I'm Gopi — a 2× national-level hackathon winner and AI/ML engineer focused on building reliable "
-        "systems around LLMs, RAG pipelines, and AI agents. I'm reaching out to ask whether you have any "
-        f"remote {TARGET_ROLE} openings — internship, part-time, or otherwise."
+        f"I'm reaching out to ask whether you have any remote {TARGET_ROLE} openings — internship, part-time, or otherwise."
     )
     experience = (
-        "Over the past year I shipped several AI systems: a fine-tuned translation model with 100+ downloads "
-        "on HuggingFace, an AI agent for desktop automation that won Best Technical Implementation at "
-        "NEOVERSE'26, a safety-aligned LLM fine-tuned on legal data using Constitutional AI and RLAIF, and "
-        "a RAG-based research pipeline built for hallucination resistance. I also completed an 8-month ML "
-        "engineering internship building computer vision systems and deploying production applications with "
-        "Django and React."
+        "The work I have done includes AI systems, automation tools, and production web applications, with "
+        "experience in LLMs, RAG pipelines, computer vision, and deployment workflows."
     )
 
     return f"""<!DOCTYPE html>
@@ -228,20 +217,7 @@ def body_html(company: dict, campaign_tier: str) -> str:
   ask whether a simpler approach solves the problem — that question alone keeps systems fast,
   maintainable, and cheap to run.</p>
 
-    <div class="links">
-        Portfolio &nbsp;&nbsp;→ <a href="{PORTFOLIO}">{PORTFOLIO}</a><br>
-        GitHub &nbsp;&nbsp;&nbsp;&nbsp;→ <a href="{GITHUB}">github.com/Gopikrish-30</a><br>
-        HuggingFace → <a href="{HUGGINGFACE}">huggingface.co/gopi30</a><br>
-        LinkedIn &nbsp;&nbsp;→ <a href="{LINKEDIN}">linkedin.com/in/gopi-m</a>
-    </div>
-
     <p>If there are any openings available now or coming up, I'd love to hear about it.</p>
-
-    <div class="sig">
-        Thanks,<br>
-        <strong style="color:#111; font-size:14px;">Gopi M</strong><br>
-        {PHONE} · <a href="mailto:{SENDER_EMAIL}" style="color:#555; border-bottom:1px solid #ddd;">{SENDER_EMAIL}</a>
-    </div>
 
 </body>
 </html>"""
@@ -251,17 +227,11 @@ def body_plain(company: dict, campaign_tier: str) -> str:
     name = company['company_name']
 
     intro = (
-        "I'm Gopi — a 2× national-level hackathon winner and AI/ML engineer focused on building reliable "
-        "systems around LLMs, RAG pipelines, and AI agents. I'm reaching out to ask whether you have any "
-        f"remote {TARGET_ROLE} openings — internship, part-time, or otherwise."
+        f"I'm reaching out to ask whether you have any remote {TARGET_ROLE} openings — internship, part-time, or otherwise."
     )
     experience = (
-        "Over the past year I shipped several AI systems: a fine-tuned translation model with 100+ downloads "
-        "on HuggingFace, an AI agent for desktop automation that won Best Technical Implementation at "
-        "NEOVERSE'26, a safety-aligned LLM fine-tuned on legal data using Constitutional AI and RLAIF, and "
-        "a RAG-based research pipeline built for hallucination resistance. I also completed an 8-month ML "
-        "engineering internship building computer vision systems and deploying production applications with "
-        "Django and React."
+        "The work I have done includes AI systems, automation tools, and production web applications, with "
+        "experience in LLMs, RAG pipelines, computer vision, and deployment workflows."
     )
 
     return f"""Hi {name} team,
@@ -272,16 +242,7 @@ def body_plain(company: dict, campaign_tier: str) -> str:
 
 My approach: I build complete systems — not just notebooks. Before reaching for an LLM I always ask whether a simpler approach solves the problem — that question alone keeps systems fast, maintainable, and cheap to run.
 
-Portfolio:    {PORTFOLIO}
-GitHub:       {GITHUB}
-HuggingFace:  {HUGGINGFACE}
-LinkedIn:     {LINKEDIN}
-
 If there are any openings available now or coming up, I'd love to hear about it.
-
-Thanks,
-Gopi M
-{PHONE} · {SENDER_EMAIL}
 """
 
 

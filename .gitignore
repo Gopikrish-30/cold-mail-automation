@@ -6,3 +6,4 @@ sent_log.json
 .venv/
 venv/
 env/
+cold_email_bot.local.py
