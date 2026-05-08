@@ -55,15 +55,14 @@ No third-party Python packages are required. The script uses only the Python sta
 
 ### 2) Configure the script
 
-Open `cold_email_bot.py` and provide your values through environment variables:
+Open `cold_email_bot.py` and update these 2 lines near the top:
 
 ```python
-SENDER_NAME   = os.getenv("SENDER_NAME", "")
-SENDER_EMAIL  = os.getenv("SENDER_EMAIL", "")
-GMAIL_APP_PWD = os.getenv("GMAIL_APP_PWD", "")
+SENDER_EMAIL  = "gopim302004@gmail.com"   # already set ✅
+GMAIL_APP_PWD = "abcd efgh ijkl mnop"     # ← paste your App Password here
 ```
 
-Set those variables in your shell or editor before running the script.
+The script already contains your sender name, portfolio links, and sender details.
 
 ### 3) Keep the CSV in the project folder
 
@@ -148,13 +147,21 @@ AI Engineering Internship Enquiry
 ```text
 Hi {company_name} team,
 
-I'm reaching out to ask whether you have any remote AI Engineer Internship / ML Engineer Internship openings — internship, part-time, or otherwise.
+I'm Gopi — a 2× national-level hackathon winner and AI/ML engineer focused on building reliable systems around LLMs, RAG pipelines, and AI agents. I'm reaching out to ask whether you have any remote AI Engineer Internship / ML Engineer Internship openings — internship, part-time, or otherwise.
 
-The work I have done includes AI systems, automation tools, and production web applications, with experience in LLMs, RAG pipelines, computer vision, and deployment workflows.
+Over the past year I shipped several AI systems: a fine-tuned translation model with 100+ downloads on HuggingFace, an AI agent for desktop automation that won Best Technical Implementation at NEOVERSE'26, a safety-aligned LLM fine-tuned on legal data using Constitutional AI and RLAIF, and a RAG-based research pipeline built for hallucination resistance. I also completed an 8-month ML engineering internship building computer vision systems and deploying production applications with Django and React.
 
 My approach: I build complete systems — not just notebooks. Before reaching for an LLM I always ask whether a simpler approach solves the problem — that question alone keeps systems fast, maintainable, and cheap to run.
 
+Portfolio:    {PORTFOLIO}
+GitHub:       {GITHUB}
+HuggingFace:  {HUGGINGFACE}
+LinkedIn:     {LINKEDIN}
+
 If there are any openings available now or coming up, I'd love to hear about it.
+
+Thanks,
+Gopi M
 ```
 
 ## Output files
@@ -179,6 +186,11 @@ You can customize the campaign by editing these values in `cold_email_bot.py`:
 - `SENDER_NAME`
 - `SENDER_EMAIL`
 - `GMAIL_APP_PWD`
+- `PORTFOLIO`
+- `GITHUB`
+- `HUGGINGFACE`
+- `LINKEDIN`
+- `PHONE`
 - `TARGET_ROLE`
 
 You can also adjust the AI and tech keyword lists if you want to change targeting logic.
